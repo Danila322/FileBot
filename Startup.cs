@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FileBot.Extensions;
+using FileBot.Services.Abstractions;
+using FileBot.Services;
 
 namespace FileBot
 {
@@ -19,6 +21,7 @@ namespace FileBot
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddScoped<ICommandFactory, CommandFactory>()
                 .AddTelegramBot(Configuration)
                 .AddControllers()
                 .AddNewtonsoftJson();
