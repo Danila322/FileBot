@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using FileBot.Extensions;
 using FileBot.Services.Abstractions;
 using FileBot.Services;
+using FileBot.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FileBot
 {
@@ -21,8 +23,13 @@ namespace FileBot
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddDbContext<BotDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("DataBaseConnection"));
+                    options.UseLazyLoadingProxies();
+                })
                 .AddScoped<ICommandFactory, CommandFactory>()
-                .AddTelegramBot(Configuration)
+                //.AddTelegramBot(Configuration)
                 .AddControllers()
                 .AddNewtonsoftJson();
         }

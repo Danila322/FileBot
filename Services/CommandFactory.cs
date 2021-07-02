@@ -9,8 +9,9 @@ namespace FileBot.Services
 {
     public class CommandFactory : ICommandFactory
     {
-        private IEnumerable<ITelegramCommand> commands;
         private static NullCommand nullCommand = new NullCommand();
+
+        private IEnumerable<ITelegramCommand> commands;
 
         public CommandFactory()
         {
