@@ -7,11 +7,11 @@ namespace FileBot.Services.Abstractions
     {
         public Task<T> Get(long id);
 
-        public Task<IEnumerable<T>> GetAll();
-
         public Task Add(T item);
 
-        public Task Remove(T item);
+        public Task<bool> Exist(long id);
+
+        public void Remove(T item);
 
         public Task Save();
     }

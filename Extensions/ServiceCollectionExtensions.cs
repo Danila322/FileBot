@@ -1,7 +1,7 @@
-﻿
+﻿using FileBot.Models;
+using FileBot.Services;
+using FileBot.Services.Abstractions;
 using Microsoft.Extensions.Configuration;
-
-
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 
@@ -15,6 +15,13 @@ namespace FileBot.Extensions
             var client = new TelegramBotClient(settings.Key);
             client.SetWebhookAsync($"{settings.Url}/api/message/update").Wait();
             return services.AddScoped<ITelegramBotClient>(s => client);
+        }
+
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            return services
+                .AddScoped<IRepository<UserInfo>, UserInfoRepository>()
+                .AddScoped<IRepository<Directory>, DirectoryRepository>();
         }
     }
 }

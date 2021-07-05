@@ -28,6 +28,7 @@ namespace FileBot
                     options.UseSqlServer(Configuration.GetConnectionString("DataBaseConnection"));
                     options.UseLazyLoadingProxies();
                 })
+                .AddRepositories()
                 .AddScoped<ICommandFactory, CommandFactory>()
                 //.AddTelegramBot(Configuration)
                 .AddControllers()
