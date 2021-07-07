@@ -1,18 +1,36 @@
-﻿using System.Threading.Tasks;
+﻿using FileBot.Models;
+using FileBot.Services.Abstractions;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace FileBot.Commands
 {
-    public class StartCommand : TelegramCommand
+    public class StartCommand : MessageCommand
     {
+        private readonly IRepository<UserInfo> repository;
+
+        public StartCommand(IRepository<UserInfo> repository)
+        {
+            this.repository = repository;
+        }
+
         protected override string Name => CommandName.Start;
 
-        public override Task Execute(ITelegramBotClient client, Update update)
+        public override async Task Execute(ITelegramBotClient client, Update update)
         {
+            User user = update.Message.From;
             ChatId id = update.Message.Chat.Id;
-            string message = $"Hello, {update.Message.From.FirstName},\nuse {CommandName.Show} to view your files";
-            return client.SendTextMessageAsync(id, message);
+
+            if (!await repository.Exist(user.Id))
+            {
+                UserInfo info = new UserInfo() { UserId = user.Id, CurrentDirectory = new Directory() };
+                await repository.Add(info);
+                await repository.Save();
+            }
+            
+            string message = $"Hello, {user.FirstName}, use {CommandName.Show} to view your files";
+            await client.SendTextMessageAsync(id, message);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FileBot.Commands;
+using FileBot.Models;
 using FileBot.Services.Abstractions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,11 +14,12 @@ namespace FileBot.Services
 
         private IEnumerable<ITelegramCommand> commands;
 
-        public CommandFactory()
+        public CommandFactory(IRepository<UserInfo> repository, IMarkupBuilder markupBuilder)
         {
-            commands = new[]
+            commands = new ITelegramCommand[]
             {
-                new StartCommand()
+                new StartCommand(repository),
+                new ShowCommands(repository, markupBuilder)
             };
         }
 

@@ -5,7 +5,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace FileBot.Commands
 {
-    public abstract class TelegramCommand : ITelegramCommand
+    public abstract class MessageCommand : ITelegramCommand
     {
         protected abstract string Name { get; }
 

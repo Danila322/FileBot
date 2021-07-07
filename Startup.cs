@@ -29,6 +29,7 @@ namespace FileBot
                     options.UseLazyLoadingProxies();
                 })
                 .AddRepositories()
+                .AddScoped<IMarkupBuilder, MarkupBuilder>()
                 .AddScoped<ICommandFactory, CommandFactory>()
                 //.AddTelegramBot(Configuration)
                 .AddControllers()

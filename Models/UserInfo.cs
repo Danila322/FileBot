@@ -6,7 +6,7 @@
 
         public long CurrentDirectoryId { get; set; }
 
-        public long? BotMessageId { get; set; }
+        public int? BotMessageId { get; set; }
 
         public virtual Directory CurrentDirectory { get; set; }
     }

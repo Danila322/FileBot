@@ -1,17 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace FileBot
+﻿namespace FileBot
 {
     public class BotSettings
     {
-        public BotSettings(IConfiguration configuration)
-        {
-            Url = configuration["Url"];
-            Key = configuration["Key"];
-        }
+        public string Url { get; set; }
 
-        public string Url { get; }
-
-        public string Key { get; }
+        public string Key { get; set; }
     }
 }
