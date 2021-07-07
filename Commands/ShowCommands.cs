@@ -1,4 +1,5 @@
-﻿using FileBot.Models;
+﻿using FileBot.MarkupBuilders;
+using FileBot.Models;
 using FileBot.Services.Abstractions;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -9,9 +10,9 @@ namespace FileBot.Commands
     public class ShowCommands : MessageCommand
     {
         private readonly IRepository<UserInfo> repository;
-        private readonly IMarkupBuilder markupBuilder;
+        private readonly IMarkupBuilder<Directory> markupBuilder;
 
-        public ShowCommands(IRepository<UserInfo> repository, IMarkupBuilder markupBuilder)
+        public ShowCommands(IRepository<UserInfo> repository, IMarkupBuilder<Directory> markupBuilder)
         {
             this.repository = repository;
             this.markupBuilder = markupBuilder;
@@ -30,7 +31,7 @@ namespace FileBot.Commands
                 await client.DeleteMessageAsync(chatId, info.BotMessageId.Value);
             }
 
-            var markup = markupBuilder.BuildDirectoriesMarkup(info.CurrentDirectory);
+            var markup = markupBuilder.Build(info.CurrentDirectory);
             Message message = await client.SendTextMessageAsync(chatId, info.CurrentDirectory.Name, replyMarkup: markup);
 
             info.BotMessageId = message.MessageId;

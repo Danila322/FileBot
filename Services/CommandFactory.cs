@@ -14,12 +14,15 @@ namespace FileBot.Services
 
         private IEnumerable<ITelegramCommand> commands;
 
-        public CommandFactory(IRepository<UserInfo> repository, IMarkupBuilder markupBuilder)
+        public CommandFactory(IRepository<UserInfo> repository, IMarkupBuilderFactory markupBuilderFactory)
         {
+            var directoriesMarkupBuilder = markupBuilderFactory.CreateDirectoriesMarkupBuilder();
+
             commands = new ITelegramCommand[]
             {
                 new StartCommand(repository),
-                new ShowCommands(repository, markupBuilder)
+                new ShowCommands(repository, directoriesMarkupBuilder),
+                new BackCommand(repository,directoriesMarkupBuilder)
             };
         }
 

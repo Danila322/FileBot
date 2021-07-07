@@ -1,39 +1,36 @@
 ﻿using FileBot.MarkupBuilders;
 using FileBot.Models;
 using FileBot.Services.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace FileBot.Commands
 {
-    public class BackCommand : CallbackQueryCommand
+    public abstract class SwitchCommand : CallbackQueryCommand
     {
-        private readonly IRepository<UserInfo> repository;
+        private readonly IRepository<UserInfo> userRepository;
         private readonly IMarkupBuilder<Directory> markupBuilder;
 
-        public BackCommand(IRepository<UserInfo> repository, IMarkupBuilder<Directory> markupBuilder)
+        public SwitchCommand(IRepository<UserInfo> userRepository, IMarkupBuilder<Directory> markupBuilder)
         {
-            this.repository = repository;
+            this.userRepository = userRepository;
             this.markupBuilder = markupBuilder;
         }
-
-        protected override string Name => CommandName.Back;
 
         public async override Task Execute(ITelegramBotClient client, Update update)
         {
             var userId = update.CallbackQuery.From.Id;
             var chatId = update.CallbackQuery.ChatInstance;
 
-            var info = await repository.Get(userId);
-
-            info.CurrentDirectory = info.CurrentDirectory.Parent;
-            info.CurrentDirectoryId = info.CurrentDirectory.Id;
+            var info = await userRepository.Get(userId);
 
             var markup = markupBuilder.Build(info.CurrentDirectory);
 
             await client.EditMessageTextAsync(chatId, info.BotMessageId.Value, info.CurrentDirectory.Name, replyMarkup: markup);
-            await repository.Save();
         }
     }
 }
