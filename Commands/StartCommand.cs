@@ -21,7 +21,7 @@ namespace FileBot.Commands
         {
             User user = update.Message.From;
             ChatId id = update.Message.Chat.Id;
-
+            
             if (!await repository.Exist(user.Id))
             {
                 UserInfo info = new UserInfo() { UserId = user.Id, CurrentDirectory = new Directory() };

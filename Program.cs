@@ -1,5 +1,8 @@
+using FileBot.Services.Abstractions;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Threading.Tasks;
 
 namespace FileBot
@@ -8,7 +11,10 @@ namespace FileBot
     {
         private static async Task Main(string[] args)
         {
-            await CreateHostBuilder(args).Build().RunAsync();
+            IHost host =  CreateHostBuilder(args).Build();
+
+            await Initialize(host.Services);
+            await host.RunAsync();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -17,5 +23,15 @@ namespace FileBot
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static async Task Initialize(IServiceProvider provider)
+        {
+            using(var scope = provider.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetService<IInitializer>();
+
+                await initializer.Initialize();
+            }            
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace FileBot.Commands
         public async override Task Execute(ITelegramBotClient client, Update update)
         {
             var userId = update.CallbackQuery.From.Id;
-            var chatId = update.CallbackQuery.ChatInstance;
+            var chatId = update.CallbackQuery.ChatInstance; 
 
             var info = await repository.Get(userId);
 
