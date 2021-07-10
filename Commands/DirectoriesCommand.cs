@@ -6,7 +6,7 @@ namespace FileBot.Commands
 {
     public class DirectoriesCommand : SwitchCommand
     {
-        public DirectoriesCommand(IRepository<UserInfo> userRepository, IMarkupBuilder<Directory> markupBuilder) 
+        public DirectoriesCommand(IUserInfoRepository userRepository, IMarkupBuilder<Directory> markupBuilder) 
             : base(userRepository,markupBuilder)
         {
         }

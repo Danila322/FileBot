@@ -9,11 +9,11 @@ namespace FileBot.Commands
 {
     public class DirectoryCommand : CallbackQueryCommand
     {
-        private readonly IRepository<UserInfo> userRepository;
-        private readonly IRepository<Directory> directoryRepository;
+        private readonly IUserInfoRepository userRepository;
+        private readonly IDirectoryRepository directoryRepository;
         private readonly IMarkupBuilder<Directory> markupBuilder;
 
-        public DirectoryCommand(IRepository<UserInfo> userRepository, IRepository<Directory> directoryRepository, IMarkupBuilder<Directory> markupBuilder)
+        public DirectoryCommand(IUserInfoRepository userRepository, IDirectoryRepository directoryRepository, IMarkupBuilder<Directory> markupBuilder)
         {
             this.userRepository = userRepository;
             this.directoryRepository = directoryRepository;

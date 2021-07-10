@@ -8,9 +8,9 @@ namespace FileBot.Commands
 {
     public class StartCommand : MessageCommand
     {
-        private readonly IRepository<UserInfo> repository;
+        private readonly IUserInfoRepository repository;
 
-        public StartCommand(IRepository<UserInfo> repository)
+        public StartCommand(IUserInfoRepository repository)
         {
             this.repository = repository;
         }

@@ -21,8 +21,9 @@ namespace FileBot.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
-                .AddScoped<IRepository<UserInfo>, UserInfoRepository>()
-                .AddScoped<IRepository<Directory>, DirectoryRepository>();
+                .AddScoped<IUserInfoRepository, UserInfoRepository>()
+                .AddScoped<IDirectoryRepository, DirectoryRepository>()
+                .AddScoped<IFileRepository, FileRepoitory>();
         }
     }
 }

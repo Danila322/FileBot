@@ -9,10 +9,10 @@ namespace FileBot.Commands
 {
     public class ShowCommands : MessageCommand
     {
-        private readonly IRepository<UserInfo> repository;
+        private readonly IUserInfoRepository repository;
         private readonly IMarkupBuilder<Directory> markupBuilder;
 
-        public ShowCommands(IRepository<UserInfo> repository, IMarkupBuilder<Directory> markupBuilder)
+        public ShowCommands(IUserInfoRepository repository, IMarkupBuilder<Directory> markupBuilder)
         {
             this.repository = repository;
             this.markupBuilder = markupBuilder;

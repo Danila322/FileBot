@@ -9,10 +9,10 @@ namespace FileBot.Commands
 {
     public abstract class SwitchCommand : CallbackQueryCommand
     {
-        private readonly IRepository<UserInfo> userRepository;
+        private readonly IUserInfoRepository userRepository;
         private readonly IMarkupBuilder<Directory> markupBuilder;
 
-        public SwitchCommand(IRepository<UserInfo> userRepository, IMarkupBuilder<Directory> markupBuilder)
+        public SwitchCommand(IUserInfoRepository userRepository, IMarkupBuilder<Directory> markupBuilder)
         {
             this.userRepository = userRepository;
             this.markupBuilder = markupBuilder;
