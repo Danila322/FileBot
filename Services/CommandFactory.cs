@@ -1,5 +1,4 @@
 ﻿using FileBot.Commands;
-using FileBot.Models;
 using FileBot.Services.Abstractions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,15 +13,22 @@ namespace FileBot.Services
 
         private IEnumerable<ITelegramCommand> commands;
 
-        public CommandFactory(IUserInfoRepository repository, IMarkupBuilderFactory markupBuilderFactory)
+        public CommandFactory(IUserInfoRepository userRepository, IDirectoryRepository directoryRepository, IFileRepository fileRepository, IMarkupBuilderFactory markupBuilderFactory)
         {
             var directoriesMarkupBuilder = markupBuilderFactory.CreateDirectoriesMarkupBuilder();
+            var filesMarkupBuilder = markupBuilderFactory.CreateFilesMarkupBuilder();
 
             commands = new ITelegramCommand[]
             {
-                new StartCommand(repository),
-                new ShowCommands(repository, directoriesMarkupBuilder),
-                new BackCommand(repository,directoriesMarkupBuilder)
+                new StartCommand(userRepository),
+                new ShowCommands(userRepository, directoriesMarkupBuilder),
+                new CreateDirectoryCommand(userRepository, directoryRepository, directoriesMarkupBuilder),
+                new BackCommand(userRepository,directoriesMarkupBuilder),
+                new DirectoriesCommand(userRepository, directoriesMarkupBuilder),
+                new DirectoryCommand(userRepository,directoryRepository, directoriesMarkupBuilder),
+                new LoadFileCommand(userRepository, fileRepository),
+                new FileCommand(fileRepository),
+                new FilesCommand(userRepository, filesMarkupBuilder)
             };
         }
 

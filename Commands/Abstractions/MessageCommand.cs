@@ -11,7 +11,7 @@ namespace FileBot.Commands
 
         public virtual bool CanExecute(Update update)
         {
-            return update.Type == UpdateType.Message && update.Message.Text == Name;
+            return update.Type == UpdateType.Message && update.Message.Text.StartsWith(Name);
         }
 
         public abstract Task Execute(ITelegramBotClient client, Update update);

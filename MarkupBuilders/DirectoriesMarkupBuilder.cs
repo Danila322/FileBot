@@ -21,8 +21,6 @@ namespace FileBot.MarkupBuilders
                 buttons.Add(CreateRow(nameof(CommandName.Back), CommandName.Back));
             }
 
-            buttons.Add(CreateRow(nameof(CommandName.Create), CommandName.Create));
-
             foreach (var dir in directory.Directories)
             {
                 buttons.Add(CreateRow(dir.Name, CommandName.Directory + dir.Id));
