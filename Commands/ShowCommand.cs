@@ -7,12 +7,12 @@ using Telegram.Bot.Types;
 
 namespace FileBot.Commands
 {
-    public class ShowCommands : MessageCommand
+    public class ShowCommand : MessageCommand
     {
         private readonly IUserInfoRepository repository;
         private readonly IMarkupBuilder<Directory> markupBuilder;
 
-        public ShowCommands(IUserInfoRepository repository, IMarkupBuilder<Directory> markupBuilder)
+        public ShowCommand(IUserInfoRepository repository, IMarkupBuilder<Directory> markupBuilder)
         {
             this.repository = repository;
             this.markupBuilder = markupBuilder;

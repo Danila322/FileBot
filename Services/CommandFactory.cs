@@ -21,12 +21,12 @@ namespace FileBot.Services
             commands = new ITelegramCommand[]
             {
                 new StartCommand(userRepository),
-                new ShowCommands(userRepository, directoriesMarkupBuilder),
+                new ShowCommand(userRepository, directoriesMarkupBuilder),
                 new CreateDirectoryCommand(userRepository, directoryRepository, directoriesMarkupBuilder),
                 new BackCommand(userRepository,directoriesMarkupBuilder),
                 new DirectoriesCommand(userRepository, directoriesMarkupBuilder),
                 new DirectoryCommand(userRepository,directoryRepository, directoriesMarkupBuilder),
-                new LoadFileCommand(userRepository, fileRepository),
+                new LoadFileCommand(userRepository, fileRepository, filesMarkupBuilder),
                 new FileCommand(fileRepository),
                 new FilesCommand(userRepository, filesMarkupBuilder)
             };

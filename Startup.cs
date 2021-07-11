@@ -32,7 +32,7 @@ namespace FileBot
                 .AddScoped<IInitializer, DbInitializer>()
                 .AddScoped<IMarkupBuilderFactory, MarkupBuilderFactory>()
                 .AddScoped<ICommandFactory, CommandFactory>()
-                //.AddTelegramBot(Configuration)
+                .AddTelegramBot(Configuration)
                 .AddControllers()
                 .AddNewtonsoftJson();
         }
