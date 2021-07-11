@@ -10,9 +10,9 @@
 
         public static string Back => "back";
 
-        public static string Directories => "directories";
+        public static string Directories => "switchToDirectories";
 
-        public static string Files => "files";
+        public static string Files => "switchToFiles";
 
         public static string Directory => "directory";
 

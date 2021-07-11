@@ -15,5 +15,7 @@ namespace FileBot.Models
         public virtual List<Directory> Directories { get; set; } = new List<Directory>();
 
         public virtual List<File> Files { get; set; } = new List<File>();
+
+        public string Path => Parent?.Path + "/" + Name;
     }
 }

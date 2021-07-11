@@ -8,6 +8,7 @@ using FileBot.Services.Abstractions;
 using FileBot.Services;
 using FileBot.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 
 namespace FileBot
 {
@@ -34,7 +35,11 @@ namespace FileBot
                 .AddScoped<ICommandFactory, CommandFactory>()
                 .AddTelegramBot(Configuration)
                 .AddControllers()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

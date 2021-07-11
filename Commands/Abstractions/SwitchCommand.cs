@@ -21,13 +21,13 @@ namespace FileBot.Commands
         public async override Task Execute(ITelegramBotClient client, Update update)
         {
             var userId = update.CallbackQuery.From.Id;
-            var chatId = update.CallbackQuery.ChatInstance;
+            var chatId = update.CallbackQuery.Message.Chat.Id;
 
             var info = await userRepository.Get(userId);
 
             var markup = markupBuilder.Build(info.CurrentDirectory);
 
-            await client.EditMessageTextAsync(chatId, info.BotMessageId.Value, info.CurrentDirectory.Name, replyMarkup: markup);
+            await client.EditMessageTextAsync(chatId, info.BotMessageId.Value, info.CurrentDirectory.Path, replyMarkup: markup);
         }
     }
 }

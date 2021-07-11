@@ -24,12 +24,13 @@ namespace FileBot.Commands
             
             if (!await repository.Exist(user.Id))
             {
-                UserInfo info = new UserInfo() { UserId = user.Id, CurrentDirectory = new Directory() };
+                UserInfo info = new UserInfo() { UserId = user.Id, CurrentDirectory = new Directory() { Name = "root" } };
                 await repository.Add(info);
                 await repository.Save();
             }
             
-            string message = $"Hello, {user.FirstName}, use {CommandName.Show} to view your files";
+            string message = $"Hello, {user.FirstName}, use {CommandName.Show} to view your files.\n" +
+                $"To create new directory use {CommandName.Create} <DirectoryName>.";
             await client.SendTextMessageAsync(id, message);
         }
     }
