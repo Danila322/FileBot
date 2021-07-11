@@ -1,4 +1,5 @@
 ﻿using FileBot.Services.Abstractions;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -20,13 +21,14 @@ namespace FileBot.Commands
 
         public async override Task Execute(ITelegramBotClient client, Update update)
         {
-            var chatId = update.CallbackQuery.Message.Chat.Id;
+            var chatId = update.CallbackQuery.ChatInstance;
 
             long fileId = long.Parse(update.CallbackQuery.Data.Substring(Name.Length));
             var file = await fileRepository.Get(fileId);
 
-            await using(MemoryStream stream = new MemoryStream(file.Data))
+            await using(MemoryStream stream = new MemoryStream())
             {
+                await stream.WriteAsync(file.Data);
                 InputOnlineFile input = new InputOnlineFile(stream, file.Name);
                 await client.SendDocumentAsync(chatId,input);
             }

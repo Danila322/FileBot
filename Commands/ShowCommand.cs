@@ -30,9 +30,9 @@ namespace FileBot.Commands
             {
                 await client.DeleteMessageAsync(chatId, info.BotMessageId.Value);
             }
-            
+
             var markup = markupBuilder.Build(info.CurrentDirectory);
-            Message message = await client.SendTextMessageAsync(chatId, info.CurrentDirectory.Path, replyMarkup: markup);
+            Message message = await client.SendTextMessageAsync(chatId, info.CurrentDirectory.Name, replyMarkup: markup);
 
             info.BotMessageId = message.MessageId;
             await repository.Save();

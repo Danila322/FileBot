@@ -24,7 +24,7 @@ namespace FileBot.Services
             try
             {
                 var migrations = await context.Database.GetPendingMigrationsAsync();
-                
+
                 if (migrations.Any())
                 {
                     await context.Database.MigrateAsync();

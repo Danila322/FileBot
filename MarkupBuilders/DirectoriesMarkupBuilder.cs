@@ -11,7 +11,10 @@ namespace FileBot.MarkupBuilders
         {
             var buttons = new List<IEnumerable<InlineKeyboardButton>>();
 
-            buttons.Add(CreateRow(nameof(CommandName.Files), CommandName.Files));
+            if (directory.Files.Count > 0)
+            {
+                buttons.Add(CreateRow(nameof(CommandName.Files), CommandName.Files));
+            }
 
             if (directory.Parent is not null)
             {

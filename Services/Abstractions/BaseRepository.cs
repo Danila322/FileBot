@@ -15,17 +15,17 @@ namespace FileBot.Services.Abstractions
             this.Context = context;
         }
 
-        public async virtual Task<T> Get(long id)
+        public async Task<T> Get(long id)
         {
             return await Set.FindAsync(id);
         }
 
-        public async virtual Task Add(T item)
+        public async Task Add(T item)
         {
             await Set.AddAsync(item);
         }
         
-        public virtual void Remove(T item)
+        public void Remove(T item)
         {
             Set.Remove(item);
         }
