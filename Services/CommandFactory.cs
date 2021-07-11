@@ -13,7 +13,10 @@ namespace FileBot.Services
 
         private IEnumerable<ITelegramCommand> commands;
 
-        public CommandFactory(IUserInfoRepository userRepository, IDirectoryRepository directoryRepository, IFileRepository fileRepository, IMarkupBuilderFactory markupBuilderFactory)
+        public CommandFactory(IUserInfoRepository userRepository,
+                              IDirectoryRepository directoryRepository,
+                              IFileRepository fileRepository,
+                              IMarkupBuilderFactory markupBuilderFactory)
         {
             var directoriesMarkupBuilder = markupBuilderFactory.CreateDirectoriesMarkupBuilder();
             var filesMarkupBuilder = markupBuilderFactory.CreateFilesMarkupBuilder();
