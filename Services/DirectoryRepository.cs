@@ -15,20 +15,5 @@ namespace FileBot.Services
         }
 
         protected override DbSet<Directory> Set => Context.Directories;
-
-        public override void Remove(Directory directory)
-        {
-            foreach(var child in directory.Directories)
-            {
-                Remove(child);
-            }
-
-            foreach(var file in directory.Files)
-            {
-                fileRepository.Remove(file);
-            }
-
-            base.Remove(directory);
-        }
     }
 }
